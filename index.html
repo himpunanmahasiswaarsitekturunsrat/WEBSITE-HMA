@@ -31,14 +31,28 @@
       background-color: rgba(255, 255, 255, 0.08);
     }
 
+  h1.typewriter {
+    font-size: 2.5rem;
+    text-align: center;
+    margin: 40px auto 0 auto;
+    color: #facc15;
+    white-space: normal;
+    word-break: break-word;
+    max-width: 90vw;
+  }
+
+  @media (max-width: 768px) {
     h1.typewriter {
-      white-space: normal;
-      margin: 40px auto 0 auto;
-      text-align: center;
-      font-size: 2rem;
-      color: #facc15;
-      max-width: 90vw;
+      font-size: 1.5rem;
+      padding: 0 10px;
     }
+  }
+
+  @media (max-width: 480px) {
+    h1.typewriter {
+      font-size: 1.2rem;
+    }
+  }
 
     h2 {
       color: #facc15;
