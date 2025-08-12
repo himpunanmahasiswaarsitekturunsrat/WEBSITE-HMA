@@ -3,19 +3,285 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Organisasi Kami</title>
+  <title>Himpunan Mahasiswa Arsitektur UNSRAT</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: 'Poppins', sans-serif;
+    * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
       scroll-behavior: smooth;
       background: linear-gradient(135deg, #020617 0%, #1e3a8a 50%, #f97316 100%);
       color: #f8fafc;
       transition: background 0.5s ease-in-out;
+    }
+
+    /* Navigation Bar - IMPROVED */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(2, 6, 23, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(249, 115, 22, 0.2);
+      z-index: 1000;
+      padding: 15px 0;
+      transition: all 0.3s ease;
+      min-height: 70px;
+      display: flex;
+      align-items: center;
+    }
+
+    .navbar.scrolled {
+      background: rgba(2, 6, 23, 0.98);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #facc15;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      white-space: nowrap;
+    }
+
+    .logo::before {
+      content: "🏛️";
+      font-size: 1.8rem;
+    }
+
+    .nav-menu {
+      display: flex;
+      list-style: none;
+      gap: 30px;
+      align-items: center;
+      margin: 0;
+    }
+
+    .nav-item {
+      position: relative;
+    }
+
+    .nav-link {
+      color: #f8fafc;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 10px 15px;
+      border-radius: 25px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .nav-link::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(250, 204, 21, 0.2), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .nav-link:hover::before {
+      left: 100%;
+    }
+
+    .nav-link:hover {
+      color: #facc15;
+      background: rgba(249, 115, 22, 0.1);
+      transform: translateY(-2px);
+    }
+
+    /* Dropdown - IMPROVED */
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-content {
+      position: absolute;
+      top: calc(100% + 5px);
+      right: 0;
+      background: rgba(2, 6, 23, 0.98);
+      border: 1px solid rgba(249, 115, 22, 0.3);
+      border-radius: 15px;
+      min-width: 250px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+      overflow: hidden;
+    }
+
+    .dropdown:hover .dropdown-content {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .dropdown-item {
+      display: block;
+      padding: 15px 20px;
+      color: #f8fafc;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border-bottom: 1px solid rgba(249, 115, 22, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .dropdown-item:last-child {
+      border-bottom: none;
+    }
+
+    .dropdown-item::before {
+      content: "";
+      position: absolute;
+      left: -100%;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(249, 115, 22, 0.1), transparent);
+      transition: left 0.3s ease;
+    }
+
+    .dropdown-item:hover::before {
+      left: 100%;
+    }
+
+    .dropdown-item:hover {
+      background: rgba(249, 115, 22, 0.1);
+      color: #facc15;
+      padding-left: 30px;
+    }
+
+    /* Mobile Menu Toggle */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      cursor: pointer;
+      padding: 5px;
+      z-index: 1001;
+    }
+
+    .menu-toggle span {
+      width: 25px;
+      height: 3px;
+      background: #facc15;
+      border-radius: 3px;
+      transition: all 0.3s ease;
+    }
+
+    .menu-toggle.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .menu-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-toggle.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -6px);
+    }
+
+    /* Mobile Navigation - IMPROVED */
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: flex;
+      }
+
+      .nav-menu {
+        position: fixed;
+        top: 70px;
+        right: -100%;
+        width: 300px;
+        height: calc(100vh - 70px);
+        background: rgba(2, 6, 23, 0.98);
+        backdrop-filter: blur(10px);
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: stretch;
+        padding: 20px 0;
+        transition: right 0.3s ease;
+        border-left: 1px solid rgba(249, 115, 22, 0.2);
+        overflow-y: auto;
+      }
+
+      .nav-menu.active {
+        right: 0;
+      }
+
+      .nav-item {
+        width: 100%;
+      }
+
+      .nav-link {
+        display: block;
+        width: 100%;
+        padding: 15px 30px;
+        border-radius: 0;
+        text-align: left;
+      }
+
+      .dropdown-content {
+        position: static;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        background: rgba(249, 115, 22, 0.1);
+        margin-top: 0;
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+        display: none;
+        max-height: none;
+      }
+
+      .dropdown:hover .dropdown-content,
+      .dropdown.mobile-active .dropdown-content {
+        display: block;
+      }
+
+      .dropdown-item {
+        padding: 12px 50px;
+        font-size: 0.9rem;
+      }
+
+      .dropdown > .nav-link {
+        cursor: pointer;
+      }
+    }
+
+    /* Main Content */
+    .main-content {
+      margin-top: 70px;
+      min-height: calc(100vh - 70px);
     }
 
     section {
@@ -24,35 +290,48 @@
       border-radius: 12px;
       background-color: rgba(255, 255, 255, 0.05);
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-      transition: background-color 0.3s ease, transform 0.6s ease, opacity 0.6s ease;
+      transition: all 0.6s ease;
+      opacity: 0;
+      transform: translateY(50px);
+    }
+
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     section:hover {
       background-color: rgba(255, 255, 255, 0.08);
     }
 
-  h1.typewriter {
-    font-size: 2.5rem;
-    text-align: center;
-    margin: 40px auto 0 auto;
-    color: #facc15;
-    white-space: normal;
-    word-break: break-word;
-    max-width: 90vw;
-  }
-
-  @media (max-width: 768px) {
     h1.typewriter {
-      font-size: 1.5rem;
-      padding: 0 10px;
+      font-size: 2.5rem;
+      text-align: center;
+      margin: 40px auto 0 auto;
+      color: #facc15;
+      white-space: normal;
+      word-break: break-word;
+      max-width: 90vw;
+      padding: 0 20px;
     }
-  }
 
-  @media (max-width: 480px) {
-    h1.typewriter {
-      font-size: 1.2rem;
+    @media (max-width: 768px) {
+      .main-content {
+        margin-top: 70px;
+      }
+      
+      h1.typewriter {
+        font-size: 1.8rem;
+        padding: 0 15px;
+      }
     }
-  }
+
+    @media (max-width: 480px) {
+      h1.typewriter {
+        font-size: 1.4rem;
+        padding: 0 10px;
+      }
+    }
 
     h2 {
       color: #facc15;
@@ -61,6 +340,13 @@
       padding-left: 15px;
       margin-bottom: 20px;
       transition: color 0.3s;
+      font-size: 2rem;
+    }
+
+    @media (max-width: 768px) {
+      h2 {
+        font-size: 1.6rem;
+      }
     }
 
     h3 {
@@ -69,7 +355,7 @@
     }
 
     .container {
-      max-width: 960px;
+      max-width: 1200px;
       margin: auto;
       padding: 20px;
     }
@@ -90,6 +376,7 @@
       margin: 15px 0;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
       transition: transform 0.3s;
+      cursor: pointer;
     }
 
     img:hover {
@@ -112,458 +399,232 @@
       color: #fde68a;
     }
 
-    button.back-to-top {
+    /* Song Section Styles */
+    #lagu {
+      text-align: center;
+      padding: 40px 20px;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(249, 115, 22, 0.1) 100%);
+    }
+    
+    .song-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      border-radius: 15px;
+      background: rgba(0, 0, 0, 0.2);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    }
+    
+    .song-title {
+      font-size: 1.8rem;
+      color: #facc15;
+      margin-bottom: 30px;
+      text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      position: relative;
+      display: inline-block;
+    }
+    
+    .song-title:after {
+      content: "";
+      position: absolute;
+      bottom: -10px;
+      left: 25%;
+      width: 50%;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #fb923c, transparent);
+    }
+    
+    .song-player {
+      margin: 20px auto;
+      width: 90%;
+      max-width: 500px;
+    }
+    
+    .song-player audio {
+      width: 100%;
+      height: 40px;
+      border-radius: 30px;
+      background: rgba(0, 0, 0, 0.3);
+    }
+    
+    .lyrics {
+      margin: 30px auto;
+      max-width: 80%;
+      line-height: 1.8;
+      color: #f8fafc;
+    }
+    
+    .verse {
+      margin-bottom: 25px;
+      padding: 15px;
+      border-radius: 10px;
+      background: rgba(0, 0, 0, 0.15);
+      transition: all 0.3s ease;
+    }
+    
+    .verse:hover {
+      background: rgba(249, 115, 22, 0.15);
+      transform: translateY(-3px);
+    }
+    
+    .reff {
+      background: rgba(250, 204, 21, 0.1);
+      position: relative;
+    }
+    
+    .reff-tag {
+      position: absolute;
+      top: -12px;
+      left: 20px;
+      padding: 3px 15px;
+      background: #facc15;
+      color: #1e293b;
+      font-weight: bold;
+      font-size: 0.9rem;
+      border-radius: 20px;
+    }
+    
+    .back-to-reff {
+      font-style: italic;
+      margin-top: 20px;
+      color: #facc15;
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+    
+    .song-icon {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      color: #facc15;
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
+    /* Literature Section */
+    #literatur {
+      text-align: center;
+      padding: 40px 20px;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(249, 115, 22, 0.1) 100%);
+    }
+    
+    .lit-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      border-radius: 15px;
+      background: rgba(0, 0, 0, 0.2);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    }
+    
+    .lit-title {
+      font-size: 1.8rem;
+      color: #facc15;
+      margin-bottom: 30px;
+      text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      position: relative;
+      display: inline-block;
+    }
+    
+    .lit-title:after {
+      content: "";
+      position: absolute;
+      bottom: -10px;
+      left: 25%;
+      width: 50%;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #fb923c, transparent);
+    }
+    
+    .lit-content {
+      line-height: 1.8;
+      font-size: 1.1rem;
+      margin: 20px 0;
+      text-align: left;
+    }
+    
+    .lit-link {
+      display: inline-block;
+      margin: 20px 0;
+      padding: 12px 30px;
+      background: linear-gradient(135deg, #f97316 0%, #facc15 100%);
+      color: #020617;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 700;
+      box-shadow: 0 4px 15px rgba(249, 115, 22, 0.4);
+      transition: all 0.3s ease;
+    }
+    
+    .lit-link:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(249, 115, 22, 0.6);
+      background: linear-gradient(135deg, #facc15 0%, #f97316 100%);
+      text-decoration: none;
+    }
+    
+    .lit-note {
+      font-style: italic;
+      margin-top: 25px;
+      color: #d4d4d8;
+      font-size: 0.9rem;
+    }
+    
+    .lit-icon {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      color: #facc15;
+    }
+    
+    .lit-thanks {
+      margin-top: 30px;
+      font-weight: 500;
+      color: #fcd34d;
+    }
+
+    /* Back to top button */
+    .back-to-top {
       position: fixed;
       bottom: 20px;
       right: 20px;
-      padding: 10px 15px;
+      padding: 12px 15px;
       border: none;
       border-radius: 50%;
-      background-color: #facc15;
+      background: linear-gradient(135deg, #facc15, #fb923c);
       color: #1e293b;
       font-size: 18px;
       cursor: pointer;
       display: none;
       z-index: 999;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(249, 115, 22, 0.4);
     }
 
-    @keyframes blink-caret {
-      from, to { border-color: transparent }
-      50% { border-color: orange; }
+    .back-to-top:hover {
+      transform: translateY(-3px) scale(1.1);
+      box-shadow: 0 6px 20px rgba(249, 115, 22, 0.6);
     }
-  </style>
-</head>
-<script>
-  // Scroll reveal sederhana
-  const reveals = document.querySelectorAll("section");
 
-  function revealOnScroll() {
-    for (let i = 0; i < reveals.length; i++) {
-      const windowHeight = window.innerHeight;
-      const revealTop = reveals[i].getBoundingClientRect().top;
-      const revealPoint = 150;
-
-      if (revealTop < windowHeight - revealPoint) {
-        reveals[i].classList.add("active");
-      }
-    }
-  }
-
-  window.addEventListener("scroll", revealOnScroll);
-</script>
-
-<style>
-  section {
-    opacity: 0;
-    transform: translateY(50px);
-    transition: all 0.8s ease;
-  }
-
-  section.active {
-    opacity: 1;
-    transform: translateY(0);
-  }
-</style>
-
-<body>
-  <h1 class="typewriter"></h1>
-  <div class="container">
-    <section id="deskripsi">
-      <h2>Deskripsi Organisasi</h2>
-      <p>Himpunan Mahasiswa Jurusan Arsitektur Fakultas Teknik Universitas Sam Ratulangi Manado disingkat HIMAJU ARS FT-UNSRAT yang selanjutnya diketahui sebagai Himpunan Mahasiswa Arsitektur (HMA) adalah Organisasi Mahasiswa Intra Kampus yang berada di Fakultas Teknik Universitas Sam Ratulangi Manado, merupakan kelengkapan struktural jurusan Arsitektur Fakultas Teknik Universitas Sam Ratulangi Manado.</p>
-      <p>Berkedudukan di Jurusan Arsitektur Fakultas Teknik Universitas Sam Ratulangi Manado dan berada di bawah Musyawarah Besar Mahasiswa Jurusan Arsitektur Fakultas Teknik Universitas Sam Ratulangi Manado serta tidak menjalankan politik praktis. Selanjutnya dalam pelaksanaan tugas pokok dan tanggung jawab Organisasi Kemahasiswaan berada di tingkat jurusan Arsitektur Fakultas Teknik Universitas Sam Ratulangi Manado.</p>
-    </section>
-
-    <section id="visi-misi">
-      <h2>Visi dan Misi</h2>
-      <h3>Visi</h3>
-      <p>Mewujudkan Himpunan Mahasiswa Arsitektur sebagai wadah pengembangan potensi, kreativitas, dan kolaborasi guna mendorong terbentuknya anggota yang unggul, inovatif, serta berdaya saing tinggi.</p>
-      <h3>Misi</h3>
-      <ul>
-        <li>1. Memfasilitasi pertukaran ilmu, pengalaman, dan ide melalui kolaborasi dengan berbagai pihak.</li>
-        <li>2. Wadah keterampilan seluruh anggota HMA yang kreatif, inovatif, dan berdaya saing tinggi.</li>
-        <li>3. Menjadi wadah aspirasi dan komunikasi anggota himpunan yang responsif dan berdampak.</li>
-        <li>4. Mendorong peran anggota HMA dalam kegiatan internal maupun eksternal himpunan.</li>
-      </ul>
-    </section>
-
-    <section id="tugas-fungsi">
-      <h2>Tugas, Fungsi, dan Tanggung jawab</h2>
-      <h3>Tugas</h3>
-      <p>HMA berkomitmen untuk menyelenggarakan kegiatan pendidikan, penelitian, pengabdian masyarakat, serta kegiatan keilmuan, penalaran, dan kesejahteraan mahasiswa yang selaras dengan Tri Dharma Perguruan Tinggi.</p>
-      <h3>Fungsi</h3>
-      <p>HMA berfungsi sebagai penyelenggara, penghubung, pemberi gagasan, dan jembatan sinergi antara mahasiswa, jurusan, dan pihak eksternal dalam pengembangan minat dan bakat mahasiswa.</p>
-      <h3>Tanggung jawab</h3>
-      <p>HMA bertanggung jawab langsung kepada mahasiswa Jurusan Arsitektur serta kepada pimpinan Fakultas dan Jurusan dalam menjalankan tugas dan program organisasinya secara transparan dan terkoordinasi.</p>
-    </section>
-
-    <section id="bendera">
-      <h2>Bendera</h2>
-      <div style="text-align: center;">
-        <img src="pic/image1.jpg" alt="Gambar Bendera Organisasi" style="max-width: 70%; margin: 0 auto;">
-      </div>
-      <p style="text-align: center;">Bendera merupakan lambang identitas organisasi yang sudah tak dapat diubah. Bendera memiliki logo yang ditempatkan di tengah-tengah. Warna dasar bendera adalah warna jingga terakota.</p>
-    </section>
-
-    <section id="pdh">
-      <h2>PDH (Pakaian Dinas Harian)</h2>
-      <img src="pic/image2.jpg" alt="Gambar PDH">
-      <p>Pakaian Dinas Lapangan (PDL)/Pakaian Dinas Harian (PDH) merupakan atribut fisik yang berbentuk kemeja dan berfungsi sebagai almamater Himpunan.</p>
-    </section>
-
-    <style>
-      /* CSS untuk formatting lirik lagu */
-      #lagu {
-        text-align: center;
-      }
-      
-      #lagu audio {
-        display: block;
-        margin: 20px auto;
-        width: 80%;
-        max-width: 500px;
-      }
-      
-      .lyrics-container {
-        margin: 30px auto;
-        max-width: 80%;
-        line-height: 1.8;
-      }
-      
-      .verse {
-        margin-bottom: 20px;
-      }
-      
-      .reff-title {
-        font-weight: bold;
-        margin: 15px 0 5px 0;
-        color: #fbbf24;
-      }
-      
-      .back-to-reff {
-        font-style: italic;
-        margin-top: 15px;
-        color: #fbbf24;
-      }
-    </style>
-    
-    <style>
-      /* CSS untuk bagian lagu yang menarik */
-      #lagu {
-        text-align: center;
-        padding: 40px 20px;
-        background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(249, 115, 22, 0.1) 100%);
-      }
-      
-      .song-container {
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 20px;
-        border-radius: 15px;
-        background: rgba(0, 0, 0, 0.2);
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-      }
-      
-      .song-title {
-        font-size: 1.8rem;
-        color: #facc15;
-        margin-bottom: 30px;
-        text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-        position: relative;
-        display: inline-block;
-      }
-      
-      .song-title:after {
-        content: "";
-        position: absolute;
-        bottom: -10px;
-        left: 25%;
-        width: 50%;
-        height: 3px;
-        background: linear-gradient(90deg, transparent, #fb923c, transparent);
-      }
-      
-      .song-player {
-        margin: 20px auto;
-        width: 90%;
-        max-width: 500px;
-      }
-      
-      .song-player audio {
-        width: 100%;
-        height: 40px;
-        border-radius: 30px;
-        background: rgba(0, 0, 0, 0.3);
-      }
-      
-      .lyrics {
-        margin: 30px auto;
-        max-width: 80%;
-        line-height: 1.8;
-        color: #f8fafc;
-      }
-      
-      .verse {
-        margin-bottom: 25px;
-        padding: 15px;
-        border-radius: 10px;
-        background: rgba(0, 0, 0, 0.15);
-        transition: all 0.3s ease;
-      }
-      
-      .verse:hover {
-        background: rgba(249, 115, 22, 0.15);
-        transform: translateY(-3px);
-      }
-      
-      .reff {
-        background: rgba(250, 204, 21, 0.1);
-        position: relative;
-      }
-      
-      .reff-tag {
-        position: absolute;
-        top: -12px;
-        left: 20px;
-        padding: 3px 15px;
-        background: #facc15;
-        color: #1e293b;
-        font-weight: bold;
-        font-size: 0.9rem;
-        border-radius: 20px;
-      }
-      
-      .back-to-reff {
-        font-style: italic;
-        margin-top: 20px;
-        color: #facc15;
-        font-weight: 500;
-        font-size: 0.9rem;
-      }
-      
-      .song-icon {
-        font-size: 2.5rem;
-        margin-bottom: 15px;
-        color: #facc15;
-        animation: pulse 2s infinite;
-      }
-      
-      @keyframes pulse {
-        0% { transform: scale(1); }
-        50% { transform: scale(1.1); }
-        100% { transform: scale(1); }
-      }
-    </style>
-    
-    <section id="lagu">
-      <h2>Lagu Organisasi</h2>
-      <div class="song-container">
-        <div class="song-icon">🎵</div>
-        <h3 class="song-title">MARS HMA</h3>
-        
-        <div class="song-player">
-          <audio controls>
-            <source src="lagu.mp3" type="audio/mpeg">
-            Browser Anda tidak mendukung audio.
-          </audio>
-        </div>
-        
-        <div class="lyrics">
-          <div class="verse">
-            Melangkah dengan keyakinan<br>
-            Satu tekad berkarya untuk negeri<br>
-            Semangat juang untuk masa depan<br>
-            Dengan Tri Dharma membangun bangsa
-          </div>
-          
-          <div class="verse reff">
-            <span class="reff-tag">Reff</span>
-            Himpunan mahasiswa Arsitektur Unsrat<br>
-            Angkatlah Panjimu satukan lah mimpimu<br>
-            Himpunan mahasiswa Arsitektur Unsrat<br>
-            Jayalah selama-lamanya
-          </div>
-          
-          <div class="verse">
-            Eratkanlah persaudaraan<br>
-            Solidaritas tanpa batas<br>
-            Maju terus pantang mundur<br>
-            Menembus peradaban
-          </div>
-          
-          <div class="back-to-reff">Back to reff</div>
-        </div>
-      </div>
-    </section>
-
-    <style>
-      /* CSS untuk bagian literatur */
-      #literatur {
-        text-align: center;
-        padding: 40px 20px;
-        background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(249, 115, 22, 0.1) 100%);
-      }
-      
-      .lit-container {
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 20px;
-        border-radius: 15px;
-        background: rgba(0, 0, 0, 0.2);
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-      }
-      
-      .lit-title {
-        font-size: 1.8rem;
-        color: #facc15;
-        margin-bottom: 30px;
-        text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-        position: relative;
-        display: inline-block;
-      }
-      
-      .lit-title:after {
-        content: "";
-        position: absolute;
-        bottom: -10px;
-        left: 25%;
-        width: 50%;
-        height: 3px;
-        background: linear-gradient(90deg, transparent, #fb923c, transparent);
-      }
-      
-      .lit-content {
-        line-height: 1.8;
-        font-size: 1.1rem;
-        margin: 20px 0;
-        text-align: left;
-      }
-      
-      .lit-link {
-        display: inline-block;
-        margin: 20px 0;
-        padding: 12px 30px;
-        background: linear-gradient(135deg, #f97316 0%, #facc15 100%);
-        color: #020617;
-        text-decoration: none;
-        border-radius: 50px;
-        font-weight: 700;
-        box-shadow: 0 4px 15px rgba(249, 115, 22, 0.4);
-        transition: all 0.3s ease;
-      }
-      
-      .lit-link:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 20px rgba(249, 115, 22, 0.6);
-        background: linear-gradient(135deg, #facc15 0%, #f97316 100%);
-        text-decoration: none;
-      }
-      
-      .lit-note {
-        font-style: italic;
-        margin-top: 25px;
-        color: #d4d4d8;
-        font-size: 0.9rem;
-      }
-      
-      .lit-icon {
-        font-size: 3rem;
-        margin-bottom: 20px;
-        color: #facc15;
-      }
-      
-      .lit-thanks {
-        margin-top: 30px;
-        font-weight: 500;
-        color: #fcd34d;
-      }
-    </style>
-    
-    <section id="literatur">
-      <h2>Bank Literatur</h2>
-      <div class="lit-container">
-        <div class="lit-icon">📚</div>
-        <h3 class="lit-title">E-BOOK ARSITEKTUR</h3>
-        
-        <div class="lit-content">
-          <p>Dari Biro Kepustakaan Arsitektur & Perencanaan Wilayah dan Kota menyediakan kumpulan bacaan literatur yang dapat menunjang perkuliahan mahasiswa dalam ilmu Arsitektur.</p>
-          
-          <p>Kunjungi link berikut ini untuk mengakses koleksi bacaan literatur yang tersedia:</p>
-        </div>
-        
-        <a href="https://drive.google.com/drive/folders/1nmulqJaQpqa5zjcFWQ2Sz5QBJNC8_Sub?usp=drive_link" class="lit-link" target="_blank">AKSES E-BOOK</a>
-        
-        <div class="lit-note">
-          <p>Koleksi E-book akan terus bertambah judul dan materi baru di setiap akhir bulan</p>
-        </div>
-        
-        <div class="lit-thanks">
-          <p>Terima kasih dan selamat membaca!</p>
-        </div>
-      </div>
-    </section>
-
-  <button class="back-to-top">⬆</button>
-
-  <script>
-    const title = document.querySelector(".typewriter");
-    const text = "Selamat Datang di Himpunan Mahasiswa Arsitektur";
-    let i = 0;
-    function type() {
-      if (i < text.length) {
-        title.textContent += text.charAt(i);
-        i++;
-        setTimeout(type, 50);
-      }
-    }
-    type();
-
-    const sections = document.querySelectorAll("section");
-    sections.forEach(sec => {
-      sec.style.opacity = 0;
-      sec.style.transform = "translateY(40px)";
-    });
-
-    function revealSection() {
-      sections.forEach(sec => {
-        const rect = sec.getBoundingClientRect();
-        if (rect.top < window.innerHeight - 100) {
-          sec.style.opacity = 1;
-          sec.style.transform = "translateY(0)";
-        }
-      });
-    }
-    window.addEventListener("scroll", revealSection);
-    window.addEventListener("load", revealSection);
-
-    const topBtn = document.querySelector(".back-to-top");
-    window.addEventListener("scroll", () => {
-      topBtn.style.display = window.scrollY > 300 ? "block" : "none";
-    });
-    topBtn.addEventListener("click", () => {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    });
-  </script>
-</body>
-</html>
-
-<!-- Tambahkan CSS untuk lightbox di bagian <style> dalam <head> tanpa mengganggu style asli -->
-  <style>
-    /* CSS Lightbox yang tidak mengganggu animasi yang sudah ada */
+    /* Lightbox - IMPROVED WITH BETTER STYLING */
     .lightbox {
       display: none;
       position: fixed;
-      z-index: 1000;
+      z-index: 2000;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0, 0, 0, 0.9);
+      background-color: rgba(0, 0, 0, 0.95);
       justify-content: center;
       align-items: center;
       opacity: 0;
-      transition: opacity 0.3s ease;
+      transition: opacity 0.4s ease;
       pointer-events: none;
+      backdrop-filter: blur(5px);
     }
     
     .lightbox.active {
@@ -576,8 +637,11 @@
       position: relative;
       max-width: 90%;
       max-height: 90%;
-      transform: scale(0.9);
-      transition: transform 0.3s ease;
+      transform: scale(0.8);
+      transition: transform 0.4s ease;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
     }
     
     .lightbox.active .lightbox-content {
@@ -587,79 +651,831 @@
     .lightbox-image {
       max-width: 100%;
       max-height: 90vh;
-      border-radius: 5px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      border-radius: 15px;
+      display: block;
     }
     
     .close-lightbox {
       position: absolute;
-      top: -40px;
-      right: 0;
-      color: #fff;
-      font-size: 30px;
+      top: -50px;
+      right: -10px;
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #facc15, #fb923c);
+      color: #020617;
+      font-size: 24px;
       font-weight: bold;
       cursor: pointer;
-      transition: color 0.2s;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
     }
     
     .close-lightbox:hover {
-      color: #facc15;
+      transform: scale(1.1) rotate(90deg);
+      background: linear-gradient(135deg, #fb923c, #facc15);
+      box-shadow: 0 6px 20px rgba(249, 115, 22, 0.6);
     }
-    
-    /* Tambahan untuk cursor saja tanpa mengubah animasi lain */
-    section img {
+
+    /* Member Photo Styles */
+    .member-photo {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      transition: all 0.4s ease;
       cursor: pointer;
+      border: 3px solid rgba(250, 204, 21, 0.3);
+      box-shadow: 0 8px 20px rgba(249, 115, 22, 0.3);
+    }
+
+    .member-photo:hover {
+      transform: scale(1.1);
+      border-color: #facc15;
+      box-shadow: 0 12px 25px rgba(249, 115, 22, 0.5);
+    }
+
+    .member-photo-placeholder {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #facc15, #fb923c);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: #020617;
+      font-weight: bold;
+      transition: all 0.4s ease;
+      box-shadow: 0 8px 20px rgba(249, 115, 22, 0.3);
+    }
+
+    /* Loading Animation */
+    .loading {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(250, 204, 21, 0.3);
+      border-radius: 50%;
+      border-top-color: #facc15;
+      animation: spin 1s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* IMPROVED ANGKATAN MEMBER GRID - 2 PER ROW */
+    .members-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 25px;
+      margin-top: 40px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    @media (max-width: 768px) {
+      .members-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        max-width: 400px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .members-grid {
+        gap: 15px;
+        padding: 0 10px;
+      }
+    }
+
+    .member-card {
+      background: linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(249, 115, 22, 0.1) 100%);
+      border-radius: 20px;
+      padding: 30px 20px;
+      text-align: center;
+      transition: all 0.4s ease;
+      border: 2px solid rgba(249, 115, 22, 0.2);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .member-card:hover {
+      transform: translateY(-10px) scale(1.02);
+      background: linear-gradient(135deg, rgba(249, 115, 22, 0.2) 0%, rgba(250, 204, 21, 0.15) 100%);
+      border-color: rgba(250, 204, 21, 0.5);
+      box-shadow: 0 15px 35px rgba(249, 115, 22, 0.4);
+    }
+
+    .member-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      margin: 0 auto 20px;
+      background: linear-gradient(135deg, #facc15, #fb923c);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: #020617;
+      font-weight: bold;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(249, 115, 22, 0.3);
+    }
+
+    .member-card:hover .member-avatar {
+      transform: rotate(360deg) scale(1.1);
+      box-shadow: 0 12px 25px rgba(249, 115, 22, 0.5);
+    }
+
+    .member-name {
+      font-weight: 600;
+      color: #f8fafc;
+      margin-bottom: 8px;
+      font-size: 1.1rem;
+    }
+
+    .member-role {
+      color: #fbbf24;
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 480px) {
+      .member-card {
+        padding: 25px 15px;
+      }
+      
+      .member-avatar {
+        width: 70px;
+        height: 70px;
+        font-size: 1.3rem;
+      }
+      
+      .member-name {
+        font-size: 1rem;
+      }
+      
+      .member-role {
+        font-size: 0.85rem;
+      }
+    }
+
+    /* Additional responsive improvements */
+    @media (max-width: 768px) {
+      .container {
+        padding: 15px;
+      }
+      
+      section {
+        padding: 40px 15px;
+        margin: 15px 0;
+      }
+    }
+
+    @media (max-width: 480px) {
+      section {
+        padding: 30px 10px;
+        margin: 10px 0;
+      }
+      
+      .song-container, .lit-container {
+        padding: 15px;
+      }
     }
   </style>
-  
-  <!-- Tambahkan elemen lightbox di bagian bawah sebelum closing </body> -->
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#" class="logo" onclick="showHome()">HMA UNSRAT</a>
+      
+      <ul class="nav-menu" id="nav-menu">
+        <li class="nav-item">
+          <a href="#" class="nav-link" onclick="showHome()">Beranda</a>
+        </li>
+        <li class="nav-item dropdown" id="dropdown-menu">
+          <a href="#" class="nav-link" onclick="toggleDropdown(event)">Anggota Himpunan ▼</a>
+          <div class="dropdown-content">
+            <a href="#" class="dropdown-item" onclick="showAngkatan('redemarch')">🏆 Redemarch 2019</a>
+            <a href="#" class="dropdown-item" onclick="showAngkatan('arsgard')">🛡️ Arsgard 2020</a>
+            <a href="#" class="dropdown-item" onclick="showAngkatan('exelizers')">⚡ Exelizers 2021</a>
+            <a href="#" class="dropdown-item" onclick="showAngkatan('legionarch')">🏛️ Legionarch 2022</a>
+            <a href="#" class="dropdown-item" onclick="showAngkatan('archfinity')">♾️ Archfinity 2023</a>
+            <a href="#" class="dropdown-item" onclick="showAngkatan('arsnide')">🌟 Arsnide 2024</a>
+          </div>
+        </li>
+      </ul>
+
+      <div class="menu-toggle" id="menu-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <!-- Home Page -->
+    <div id="home-page">
+      <h1 class="typewriter"></h1>
+      <div class="container">
+        <section id="deskripsi">
+          <h2>Deskripsi Organisasi</h2>
+          <p>Himpunan Mahasiswa Jurusan Arsitektur Fakultas Teknik Universitas Sam Ratulangi Manado disingkat HIMAJU ARS FT-UNSRAT yang selanjutnya diketahui sebagai Himpunan Mahasiswa Arsitektur (HMA) adalah Organisasi Mahasiswa Intra Kampus yang berada di Fakultas Teknik Universitas Sam Ratulangi Manado, merupakan kelengkapan struktural jurusan Arsitektur Fakultas Teknik Universitas Sam Ratulangi Manado.</p>
+          <p>Berkedudukan di Jurusan Arsitektur Fakultas Teknik Universitas Sam Ratulangi Manado dan berada di bawah Musyawarah Besar Mahasiswa Jurusan Arsitektur Fakultas Teknik Universitas Sam Ratulangi Manado serta tidak menjalankan politik praktis. Selanjutnya dalam pelaksanaan tugas pokok dan tanggung jawab Organisasi Kemahasiswaan berada di tingkat jurusan Arsitektur Fakultas Teknik Universitas Sam Ratulangi Manado.</p>
+        </section>
+
+        <section id="visi-misi">
+          <h2>Visi dan Misi</h2>
+          <h3>Visi</h3>
+          <p>Mewujudkan Himpunan Mahasiswa Arsitektur sebagai wadah pengembangan potensi, kreativitas, dan kolaborasi guna mendorong terbentuknya anggota yang unggul, inovatif, serta berdaya saing tinggi.</p>
+          <h3>Misi</h3>
+          <ul>
+            <li>1. Memfasilitasi pertukaran ilmu, pengalaman, dan ide melalui kolaborasi dengan berbagai pihak.</li>
+            <li>2. Wadah keterampilan seluruh anggota HMA yang kreatif, inovatif, dan berdaya saing tinggi.</li>
+            <li>3. Menjadi wadah aspirasi dan komunikasi anggota himpunan yang responsif dan berdampak.</li>
+            <li>4. Mendorong peran anggota HMA dalam kegiatan internal maupun eksternal himpunan.</li>
+          </ul>
+        </section>
+
+        <section id="tugas-fungsi">
+          <h2>Tugas, Fungsi, dan Tanggung jawab</h2>
+          <h3>Tugas</h3>
+          <p>HMA berkomitmen untuk menyelenggarakan kegiatan pendidikan, penelitian, pengabdian masyarakat, serta kegiatan keilmuan, penalaran, dan kesejahteraan mahasiswa yang selaras dengan Tri Dharma Perguruan Tinggi.</p>
+          <h3>Fungsi</h3>
+          <p>HMA berfungsi sebagai penyelenggara, penghubung, pemberi gagasan, dan jembatan sinergi antara mahasiswa, jurusan, dan pihak eksternal dalam pengembangan minat dan bakat mahasiswa.</p>
+          <h3>Tanggung jawab</h3>
+          <p>HMA bertanggung jawab langsung kepada mahasiswa Jurusan Arsitektur serta kepada pimpinan Fakultas dan Jurusan dalam menjalankan tugas dan program organisasinya secara transparan dan terkoordinasi.</p>
+        </section>
+
+        <section id="bendera">
+          <h2>Bendera</h2>
+          <div style="text-align: center;">
+            <img src="pic/image1.jpg" alt="Gambar Bendera Organisasi" style="max-width: 70%; margin: 0 auto;">
+          </div>
+          <p style="text-align: center;">Bendera merupakan lambang identitas organisasi yang sudah tak dapat diubah. Bendera memiliki logo yang ditempatkan di tengah-tengah. Warna dasar bendera adalah warna jingga terakota.</p>
+        </section>
+
+        <section id="pdh">
+          <h2>PDH (Pakaian Dinas Harian)</h2>
+          <img src="pic/image2.jpg" alt="Gambar PDH">
+          <p>Pakaian Dinas Lapangan (PDL)/Pakaian Dinas Harian (PDH) merupakan atribut fisik yang berbentuk kemeja dan berfungsi sebagai almamater Himpunan.</p>
+        </section>
+
+        <section id="lagu">
+          <h2>Lagu Organisasi</h2>
+          <div class="song-container">
+            <div class="song-icon">🎵</div>
+            <h3 class="song-title">MARS HMA</h3>
+            
+            <div class="song-player">
+              <audio controls>
+                <source src="lagu.mp3" type="audio/mpeg">
+                Browser Anda tidak mendukung audio.
+              </audio>
+            </div>
+            
+            <div class="lyrics">
+              <div class="verse">
+                Melangkah dengan keyakinan<br>
+                Satu tekad berkarya untuk negeri<br>
+                Semangat juang untuk masa depan<br>
+                Dengan Tri Dharma membangun bangsa
+              </div>
+              
+              <div class="verse reff">
+                <span class="reff-tag">Reff</span>
+                Himpunan mahasiswa Arsitektur Unsrat<br>
+                Angkatlah Panjimu satukan lah mimpimu<br>
+                Himpunan mahasiswa Arsitektur Unsrat<br>
+                Jayalah selama-lamanya
+              </div>
+              
+              <div class="verse">
+                Eratkanlah persaudaraan<br>
+                Solidaritas tanpa batas<br>
+                Maju terus pantang mundur<br>
+                Menembus peradaban
+              </div>
+              
+              <div class="back-to-reff">Back to reff</div>
+            </div>
+          </div>
+        </section>
+
+        <section id="literatur">
+          <h2>Bank Literatur</h2>
+          <div class="lit-container">
+            <div class="lit-icon">📚</div>
+            <h3 class="lit-title">E-BOOK ARSITEKTUR</h3>
+            
+            <div class="lit-content">
+              <p>Dari Biro Kepustakaan Arsitektur & Perencanaan Wilayah dan Kota menyediakan kumpulan bacaan literatur yang dapat menunjang perkuliahan mahasiswa dalam ilmu Arsitektur.</p>
+              
+              <p>Kunjungi link berikut ini untuk mengakses koleksi bacaan literatur yang tersedia:</p>
+            </div>
+            
+            <a href="https://drive.google.com/drive/folders/1nmulqJaQpqa5zjcFWQ2Sz5QBJNC8_Sub?usp=drive_link" class="lit-link" target="_blank">AKSES E-BOOK</a>
+            
+            <div class="lit-note">
+              <p>Koleksi E-book akan terus bertambah judul dan materi baru di setiap akhir bulan</p>
+            </div>
+            
+            <div class="lit-thanks">
+              <p>Terima kasih dan selamat membaca!</p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <!-- Angkatan Pages (Hidden by default) -->
+    <div id="angkatan-pages" style="display: none;">
+      <div class="container">
+        <div id="angkatan-content">
+          <!-- Content will be loaded here -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lightbox -->
   <div class="lightbox" id="imageLightbox">
     <div class="lightbox-content">
       <span class="close-lightbox">&times;</span>
       <img class="lightbox-image" id="lightboxImg" src="" alt="Lightbox Image">
     </div>
   </div>
-  
-  <!-- Script untuk lightbox yang tidak mengganggu script animasi asli -->
+
+  <!-- Back to top button -->
+  <button class="back-to-top" id="backToTop">⬆</button>
+
   <script>
-    // Jangan menimpa script yang sudah ada, tambahkan di bawah script yang sudah ada
-    document.addEventListener('DOMContentLoaded', function() {
-      // Fungsi lightbox untuk gambar
+    // Angkatan data
+    const angkatanData = {
+      redemarch: {
+        name: "Redemarch",
+        year: "2019",
+        icon: "🏆",
+        caption: "---",
+        members: [
+          { name: "-", role: "-", initial: "-", photo: "foto/arsnide/fahri_ramadan.jpg" },
+          { name: "-", role: "-", initial: "-", photo: "foto/arsnide/putri_amelia.jpg" },
+          { name: "-", role: "-", initial: "-", photo: "foto/arsnide/alam_syahputra.jpg" },
+          { name: "-", role: "-", initial: "-", photo: "foto/arsnide/sella_rahmawati.jpg" },
+          { name: "-", role: "-", initial: "-", photo: "foto/arsnide/bryan_saputra.jpg" },
+          { name: "-", role: "-", initial: "-", photo: "foto/arsnide/intan_permata.jpg" },
+          { name: "-", role: "-", initial: "-", photo: "foto/arsnide/farel_maulana.jpg" },
+          { name: "-", role: "-", initial: "-", photo: "foto/arsnide/kiara_putri.jpg" }
+        ]
+      },
+      arsgard: {
+        name: "Arsgard",
+        year: "2020",
+        icon: "🛡️",
+        caption: "---",
+        members: [
+          { name: "-", role: "-", initial: "-", photo: "foto/arsnide/fahri_ramadan.jpg" },
+          { name: "-", role: "-", initial: "-", photo: "foto/arsnide/putri_amelia.jpg" },
+          { name: "-", role: "-", initial: "-", photo: "foto/arsnide/alam_syahputra.jpg" },
+          { name: "-", role: "-", initial: "-", photo: "foto/arsnide/sella_rahmawati.jpg" },
+          { name: "-", role: "-", initial: "-", photo: "foto/arsnide/bryan_saputra.jpg" },
+          { name: "-", role: "-", initial: "-", photo: "foto/arsnide/intan_permata.jpg" },
+          { name: "-", role: "-", initial: "-", photo: "foto/arsnide/farel_maulana.jpg" },
+          { name: "-", role: "-", initial: "-", photo: "foto/arsnide/kiara_putri.jpg" }
+        ]
+      },
+      exelizers: {
+        name: "Exelizers",
+        year: "2021",
+        icon: "⚡",
+        caption: "Realize to Execute",
+        caption: "---",
+        members: [
+          { name: "-", role: "-", initial: "-", photo: "foto/arsnide/fahri_ramadan.jpg" },
+          { name: "-", role: "-", initial: "-", photo: "foto/arsnide/putri_amelia.jpg" },
+          { name: "-", role: "-", initial: "-", photo: "foto/arsnide/alam_syahputra.jpg" },
+          { name: "-", role: "-", initial: "-", photo: "foto/arsnide/sella_rahmawati.jpg" },
+          { name: "-", role: "-", initial: "-", photo: "foto/arsnide/bryan_saputra.jpg" },
+          { name: "-", role: "-", initial: "-", photo: "foto/arsnide/intan_permata.jpg" },
+          { name: "-", role: "-", initial: "-", photo: "foto/arsnide/farel_maulana.jpg" },
+          { name: "-", role: "-", initial: "-", photo: "foto/arsnide/kiara_putri.jpg" }
+        ]
+      },
+      legionarch: {
+        name: "Legionarch",
+        year: "2022",
+        icon: "🏛️",
+        caption: "Together We Stand, Together We Won!",
+        members: [
+          { name: "Kimberly P. Lambonan", role: "220211020043", initial: "IM", photo: "foto/legionarch/image3.jpg" },
+          { name: "Reisty N.J Toar", role: "220211020052", initial: "AM", photo: "foto/legionarch/image4.jpg" },
+          { name: "Prayci C.E Tulandi", role: "220211020093", initial: "DP", photo: "foto/legionarch/image5.jpg" },
+          { name: "Miracle D.R Kambey", role: "220211020118", initial: "VO", photo: "foto/legionarch/image6.jpg" },
+          { name: "Jonathan I.R Kader", role: "220211050061", initial: "AR", photo: "foto/legionarch/image7.jpg" },
+          { name: "Alexia D. Tangon", role: "220211050092", initial: "SD", photo: "foto/legionarch/image8.jpg" },
+
+        ]
+      },
+      archfinity: {
+        name: "Archfinity",
+        year: "2023",
+        icon: "♾️",
+        caption: "Finis Non Est!",
+        members: [
+          { name: "Joshua Winokan", role: "230211020032", initial: "GP", photo: "foto/archfinity/image9.jpg" },
+          { name: "Aurellia M Baculu", role: "230211020015", initial: "KS", photo: "foto/archfinity/image10.jpg" },
+          { name: "Felicia Rorie", role: "230211020021", initial: "RF", photo: "foto/archfinity/image11.jpg" },
+          { name: "Fabyan E.J Katuuk", role: "Koordinator", initial: "MC", photo: "foto/archfinity/image12.jpg" },
+          { name: "Revaldo S Mangempuge", role: "230211020038", initial: "EP", photo: "foto/archfinity/image13.jpg" },
+          
+        ]
+      },
+      arsnide: {
+        name: "Arsnide",
+        year: "2024",
+        icon: "🌟",
+        caption: "---",
+        members: [
+          { name: "-", role: "-", initial: "-", photo: "foto/arsnide/fahri_ramadan.jpg" },
+          { name: "-", role: "-", initial: "-", photo: "foto/arsnide/putri_amelia.jpg" },
+          { name: "-", role: "-", initial: "-", photo: "foto/arsnide/alam_syahputra.jpg" },
+          { name: "-", role: "-", initial: "-", photo: "foto/arsnide/sella_rahmawati.jpg" },
+          { name: "-", role: "-", initial: "-", photo: "foto/arsnide/bryan_saputra.jpg" },
+          { name: "-", role: "-", initial: "-", photo: "foto/arsnide/intan_permata.jpg" },
+          { name: "-", role: "-", initial: "-", photo: "foto/arsnide/farel_maulana.jpg" },
+          { name: "-", role: "-", initial: "-", photo: "foto/arsnide/kiara_putri.jpg" }
+        ]
+      }
+    };
+
+    // Show home page
+    function showHome() {
+      document.getElementById('home-page').style.display = 'block';
+      document.getElementById('angkatan-pages').style.display = 'none';
+      
+      // Close mobile menu if open
+      const menuToggle = document.getElementById('menu-toggle');
+      const navMenu = document.getElementById('nav-menu');
+      menuToggle.classList.remove('active');
+      navMenu.classList.remove('active');
+      
+      // Restart typewriter animation
+      const title = document.querySelector(".typewriter");
+      title.textContent = "";
+      typeWriter();
+      
+      // Re-trigger scroll animations
+      setTimeout(() => {
+        revealSections();
+      }, 100);
+    }
+
+    // Show specific angkatan with improved 2-column layout
+    function showAngkatan(angkatanKey) {
+      const angkatan = angkatanData[angkatanKey];
+      if (!angkatan) return;
+
+      document.getElementById('home-page').style.display = 'none';
+      document.getElementById('angkatan-pages').style.display = 'block';
+
+      // Close mobile menu if open
+      const menuToggle = document.getElementById('menu-toggle');
+      const navMenu = document.getElementById('nav-menu');
+      menuToggle.classList.remove('active');
+      navMenu.classList.remove('active');
+
+      const content = document.getElementById('angkatan-content');
+      content.innerHTML = `
+        <div style="margin-top: 40px;">
+          <div style="text-align: center; margin-bottom: 40px;">
+            <button onclick="showHome()" style="
+              background: linear-gradient(135deg, #facc15, #fb923c);
+              color: #020617;
+              border: none;
+              padding: 12px 25px;
+              border-radius: 25px;
+              font-weight: 600;
+              cursor: pointer;
+              transition: all 0.3s ease;
+              font-size: 1rem;
+              box-shadow: 0 4px 15px rgba(249, 115, 22, 0.4);
+            " onmouseover="this.style.transform='translateY(-3px) scale(1.05)'" onmouseout="this.style.transform='translateY(0) scale(1)'">
+              ← Kembali ke Beranda
+            </button>
+          </div>
+          
+          <section style="
+            padding: 60px 20px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(249, 115, 22, 0.15) 100%);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(249, 115, 22, 0.2);
+            position: relative;
+            overflow: hidden;
+          ">
+            <div style="
+              position: absolute;
+              top: -50%;
+              left: -50%;
+              width: 200%;
+              height: 200%;
+              background: radial-gradient(circle, rgba(250, 204, 21, 0.05) 0%, transparent 70%);
+              animation: rotate 20s linear infinite;
+            "></div>
+            
+            <div style="position: relative; z-index: 2;">
+              <div style="text-align: center; margin-bottom: 50px;">
+                <div style="font-size: 4rem; margin-bottom: 20px; animation: bounce 2s infinite;">${angkatan.icon}</div>
+                <h1 style="
+                  font-size: 3rem;
+                  color: #facc15;
+                  margin-bottom: 10px;
+                  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+                  font-weight: 700;
+                  letter-spacing: 3px;
+                ">${angkatan.name}</h1>
+                <p style="
+                  font-size: 1.3rem;
+                  color: #fbbf24;
+                  font-weight: 600;
+                  margin-bottom: 30px;
+                ">Angkatan ${angkatan.year}</p>
+                
+                <div style="
+                  max-width: 600px;
+                  margin: 0 auto;
+                  padding: 25px;
+                  background: rgba(0, 0, 0, 0.3);
+                  border-radius: 15px;
+                  border-left: 4px solid #facc15;
+                ">
+                  <p style="
+                    font-style: italic;
+                    font-size: 1.1rem;
+                    line-height: 1.6;
+                    color: #e2e8f0;
+                  ">"${angkatan.caption}"</p>
+                </div>
+              </div>
+
+              <div class="members-grid">
+                ${angkatan.members.map((member, index) => `
+                  <div class="member-card" style="animation-delay: ${index * 0.1}s;">
+                    <div class="member-avatar">
+                      ${member.photo ? 
+                        `<img src="${member.photo}" alt="${member.name}" class="member-photo" onclick="openPhotoLightbox('${member.photo}', '${member.name}')" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                         <div class="member-photo-placeholder" style="display: none;">${member.initial}</div>` :
+                        `<div class="member-photo-placeholder">${member.initial}</div>`
+                      }
+                    </div>
+                    <h3 class="member-name">${member.name}</h3>
+                    <p class="member-role">${member.role}</p>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          </section>
+        </div>
+      `;
+
+      // Trigger animation for member cards
+      setTimeout(() => {
+        const memberCards = document.querySelectorAll('.member-card');
+        memberCards.forEach(card => {
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        });
+      }, 100);
+
+      // Scroll to top when switching pages
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Typewriter effect
+    function typeWriter() {
+      const title = document.querySelector(".typewriter");
+      const text = "Selamat Datang di Himpunan Mahasiswa Arsitektur";
+      let i = 0;
+      
+      function type() {
+        if (i < text.length) {
+          title.textContent += text.charAt(i);
+          i++;
+          setTimeout(type, 50);
+        }
+      }
+      type();
+    }
+
+    // Reveal sections on scroll
+    function revealSections() {
+      const sections = document.querySelectorAll("section");
+      sections.forEach((sec, index) => {
+        const rect = sec.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 100) {
+          setTimeout(() => {
+            sec.classList.add('visible');
+          }, index * 200);
+        }
+      });
+    }
+
+    // Mobile menu toggle - IMPROVED
+    function toggleMobileMenu() {
+      const menuToggle = document.getElementById('menu-toggle');
+      const navMenu = document.getElementById('nav-menu');
+      
+      menuToggle.classList.toggle('active');
+      navMenu.classList.toggle('active');
+      
+      // Close dropdown when mobile menu closes
+      if (!navMenu.classList.contains('active')) {
+        const dropdown = document.getElementById('dropdown-menu');
+        dropdown.classList.remove('mobile-active');
+      }
+    }
+
+    // Toggle dropdown in mobile - NEW FUNCTION
+    function toggleDropdown(event) {
+      if (window.innerWidth <= 768) {
+        event.preventDefault();
+        const dropdown = document.getElementById('dropdown-menu');
+        dropdown.classList.toggle('mobile-active');
+      }
+    }
+
+    // Navbar scroll effect - IMPROVED
+    function handleNavbarScroll() {
+      const navbar = document.getElementById('navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    }
+
+    // Back to top button
+    function handleBackToTop() {
+      const topBtn = document.getElementById('backToTop');
+      if (window.scrollY > 300) {
+        topBtn.style.display = 'block';
+      } else {
+        topBtn.style.display = 'none';
+      }
+    }
+
+    // Lightbox functionality - IMPROVED
+    function initLightbox() {
       const lightbox = document.getElementById('imageLightbox');
       const lightboxImg = document.getElementById('lightboxImg');
       const closeLightbox = document.querySelector('.close-lightbox');
-      const images = document.querySelectorAll('section img'); // Hanya target gambar dalam section
       
-      // Menambahkan event listener ke semua gambar dalam section
-      images.forEach(img => {
-        img.addEventListener('click', function() {
-          lightboxImg.src = this.src;
-          lightboxImg.alt = this.alt;
-          lightbox.classList.add('active');
-          document.body.style.overflow = 'hidden'; // Mencegah scrolling saat lightbox aktif
-        });
-      });
-      
-      // Menutup lightbox saat ikon close diklik
-      closeLightbox.addEventListener('click', function() {
-        lightbox.classList.remove('active');
-        document.body.style.overflow = 'auto'; // Mengembalikan scrolling
-      });
-      
-      // Menutup lightbox saat klik di area luar gambar
-      lightbox.addEventListener('click', function(e) {
-        if (e.target === lightbox) {
-          lightbox.classList.remove('active');
-          document.body.style.overflow = 'auto';
+      // Add click event to all images in sections (excluding member photos)
+      document.addEventListener('click', function(e) {
+        if (e.target.tagName === 'IMG' && 
+            e.target.closest('section') && 
+            !e.target.classList.contains('member-photo')) {
+          openImageLightbox(e.target.src, e.target.alt);
         }
       });
       
-      // Menutup lightbox dengan tombol Escape
+      // Close lightbox functions
+      function closeLightboxFunc() {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = 'auto';
+      }
+      
+      closeLightbox.addEventListener('click', closeLightboxFunc);
+      lightbox.addEventListener('click', function(e) {
+        if (e.target === lightbox) closeLightboxFunc();
+      });
+      
       document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape' && lightbox.classList.contains('active')) {
-          lightbox.classList.remove('active');
-          document.body.style.overflow = 'auto';
+          closeLightboxFunc();
         }
       });
+    }
+
+    // Open photo lightbox for member photos
+    function openPhotoLightbox(photoSrc, memberName) {
+      const lightbox = document.getElementById('imageLightbox');
+      const lightboxImg = document.getElementById('lightboxImg');
+      
+      lightboxImg.src = photoSrc;
+      lightboxImg.alt = memberName;
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    // Open general image lightbox
+    function openImageLightbox(imageSrc, imageAlt) {
+      const lightbox = document.getElementById('imageLightbox');
+      const lightboxImg = document.getElementById('lightboxImg');
+      
+      lightboxImg.src = imageSrc;
+      lightboxImg.alt = imageAlt;
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    // Close mobile menu when clicking outside
+    function handleOutsideClick(event) {
+      const navMenu = document.getElementById('nav-menu');
+      const menuToggle = document.getElementById('menu-toggle');
+      
+      if (navMenu.classList.contains('active') && 
+          !navMenu.contains(event.target) && 
+          !menuToggle.contains(event.target)) {
+        toggleMobileMenu();
+      }
+    }
+
+    // Event listeners
+    document.addEventListener('DOMContentLoaded', function() {
+      // Start typewriter
+      typeWriter();
+      
+      // Initialize lightbox
+      initLightbox();
+      
+      // Mobile menu toggle
+      document.getElementById('menu-toggle').addEventListener('click', toggleMobileMenu);
+      
+      // Outside click handler
+      document.addEventListener('click', handleOutsideClick);
+      
+      // Back to top button
+      document.getElementById('backToTop').addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+      
+      // Scroll events
+      window.addEventListener('scroll', function() {
+        handleNavbarScroll();
+        handleBackToTop();
+        revealSections();
+      });
+      
+      // Handle window resize
+      window.addEventListener('resize', function() {
+        const navMenu = document.getElementById('nav-menu');
+        const menuToggle = document.getElementById('menu-toggle');
+        const dropdown = document.getElementById('dropdown-menu');
+        
+        if (window.innerWidth > 768) {
+          navMenu.classList.remove('active');
+          menuToggle.classList.remove('active');
+          dropdown.classList.remove('mobile-active');
+        }
+      });
+      
+      // Initial reveal
+      setTimeout(revealSections, 500);
     });
+
+    // CSS Animations
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes rotate {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+      
+      @keyframes bounce {
+        0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+        40% { transform: translateY(-10px); }
+        60% { transform: translateY(-5px); }
+      }
+      
+      @keyframes slideInUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      
+      @keyframes blink-caret {
+        from, to { border-color: transparent }
+        50% { border-color: orange; }
+      }
+    `;
+    document.head.appendChild(style);
   </script>
+</body>
+</html>
